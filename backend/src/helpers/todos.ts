@@ -58,7 +58,9 @@ export const deleteTodo = async (
   return res
 }
 
-export const createPresignedUrl = async (todoId: string): Promise<String> => {
+export const createAttachmentPresignedUrl = async (
+  todoId: string
+): Promise<String> => {
   const res = await AttachmentUtils.createPresignedUrl(todoId)
 
   return res
