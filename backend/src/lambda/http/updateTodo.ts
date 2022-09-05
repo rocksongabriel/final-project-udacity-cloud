@@ -20,14 +20,13 @@ export const handler = middy(
     await updateTodo(userId, todoId, updatedTodo)
 
     return {
-      statusCode: 200
+      statusCode: 200,
+      body: ''
     }
 }
 
-handler
-  .use(httpErrorHandler())
-  .use(
-    cors({
-      credentials: true
-    })
-  )
+handler.use(httpErrorHandler()).use(
+  cors({
+    credentials: true
+  })
+)
