@@ -9,7 +9,7 @@ import * as createError from 'http-errors'
 
 // TODO: Implement businessLogic
 
-const createTodo = async (
+export const createTodo = async (
   createTodoRequest: CreateTodoRequest,
   userId: string
 ): Promise<TodoItem> => {
@@ -27,7 +27,7 @@ const createTodo = async (
   return res
 }
 
-const getUsersTodos = async (userId: string): Promise<TodoItem[]> => {
+export const getUsersTodos = async (userId: string): Promise<TodoItem[]> => {
   try {
     const res = await TodosAccess.getAllTodos(userId)
     return res
@@ -37,7 +37,7 @@ const getUsersTodos = async (userId: string): Promise<TodoItem[]> => {
   }
 }
 
-const updateTodo = async (
+export const updateTodo = async (
   userId: string,
   todoId: string,
   updateTodoRequest: UpdateTodoRequest
@@ -49,19 +49,22 @@ const updateTodo = async (
   return res
 }
 
-const deleteTodo = async (userId: string, todoId: string): Promise<void> => {
+export const deleteTodo = async (
+  userId: string,
+  todoId: string
+): Promise<void> => {
   const res = TodosAccess.deleteTodo(userId, todoId)
 
   return res
 }
 
-const createPresignedUrl = async (todoId: string): Promise<String> => {
+export const createPresignedUrl = async (todoId: string): Promise<String> => {
   const res = await AttachmentUtils.createPresignedUrl(todoId)
 
   return res
 }
 
-const updateTodoAttachmentUrl = async (
+export const updateTodoAttachmentUrl = async (
   userId: string,
   todoId: string
 ): Promise<void> => {
