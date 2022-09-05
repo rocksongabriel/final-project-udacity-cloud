@@ -213,6 +213,21 @@ resources:
     AttachmentsBucket:
       Type: AWS::S3::Bucket
       Properties:
+        BucketName: ${self:provider.environment.IMAGES_S3_BUCKET}
+        CorsConfiguration:
+          CorsRules:
+            - AllowedMethods:
+                - GET
+                - PUT
+                - DELETE
+                - HEAD
+                - POST
+              AllowedOrigins:
+                - "*"
+              AllowedHeaders:
+                - "*"
+              MaxAge: 4000
+
 
     # TODO: Complete the policy below and attach it to the bucket defined above
     # For cross referencing the name of the bucket, use "!Ref AttachmentsBucket"
