@@ -25,7 +25,7 @@ provider:
   environment:
     IMAGES_S3_BUCKET: serverless-c4-todo-images-${self:provider.stage}
     TODOS_TABLE: Todos-${self:provider.stage}
-    TODOS_TABLE_INDEX: ''
+    TODOS_TABLE_INDEX: Todos-index-${self:provider.stage}
     TODOS_CREATED_AT_INDEX: CreatedAtIndex
     ATTACHMENT_S3_BUCKET: serverless-c4-todo-images-${self:provider.stage}
     SIGNED_URL_EXPIRATION: 300
@@ -171,6 +171,14 @@ resources:
     GatewayResponseDefault4XX:
       Type: AWS::ApiGateway::GatewayResponse
       Properties:
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+          gatewayresponse.header.Access-Control-Allow-Methods: "'OPTIONS,GET,POST,PUT,DELETE'"
+        ResponseType: DEFAULT_4XX
+        RestApiId:
+          Ref: ApiGatewayRestApi
+
 
     # TODO: Create a DynamoDB table with local secondary index and a composite key
     TodosTable:
