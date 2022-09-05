@@ -4,9 +4,10 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
 import * as middy from 'middy'
 import { cors, httpErrorHandler } from 'middy/middlewares'
 
-import { updateTodo } from '../../businessLogic/todos'
-import { UpdateTodoRequest } from '../../requests/UpdateTodoRequest'
+import { updateTodo } from '../../helpers/todos'
 import { getUserId } from '../utils'
+import {getUserId} from '../utils'
+import {UpdateTodoRequest} from '../../requests/UpdateTodoRequest'
 
 export const handler = middy(
   async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
@@ -14,9 +15,14 @@ export const handler = middy(
     const updatedTodo: UpdateTodoRequest = JSON.parse(event.body)
     // TODO: Update a TODO item with the provided id using values in the "updatedTodo" object
 
+    const userId = getUserId(event)
 
-    return undefined
-)
+    await updateTodo(userId, todoId, updatedTodo)
+
+    return {
+      statusCode: 200
+    }
+}
 
 handler
   .use(httpErrorHandler())
