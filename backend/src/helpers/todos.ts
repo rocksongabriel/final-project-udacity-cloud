@@ -27,7 +27,7 @@ export const createTodo = async (
   return res
 }
 
-export const getUsersTodos = async (userId: string): Promise<TodoItem[]> => {
+export const getTodosForUser = async (userId: string): Promise<TodoItem[]> => {
   try {
     const res = await TodosAccess.getAllTodos(userId)
     return res
